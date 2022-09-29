@@ -11,7 +11,7 @@ function Form() {
     e.preventDefault();
     {
       title.length > 3
-        ? dispatch(addTodo({ id: nanoid(), title, complated: false }))
+        ? dispatch(addTodo({ id: nanoid(), title, completed: false }))
         : console.log("hata");
     }
 

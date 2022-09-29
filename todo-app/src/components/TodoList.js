@@ -13,6 +13,7 @@ function TodoList() {
     }
   };
 
+  console.log(activeFilter);
   filtered = items;
   if (activeFilter !== "all") {
     filtered = items.filter((todo) =>
