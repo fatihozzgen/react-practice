@@ -8,12 +8,10 @@ function Form() {
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
+    if (!title) return;
     e.preventDefault();
-    {
-      title.length > 3
-        ? dispatch(addTodo({ id: nanoid(), title, completed: false }))
-        : console.log("hata");
-    }
+
+    dispatch(addTodo({ id: nanoid(), title, completed: false }));
 
     setTitle("");
   };
