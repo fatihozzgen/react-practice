@@ -11,16 +11,18 @@ function Home() {
   const characters = useSelector((state) => state.characters.items);
   const nexPage = useSelector((state) => state.characters.page);
   const hasNextPage = useSelector((state) => state.characters.hasNextPage);
-  const isLoading = useSelector((state) => state.characters.isLoading);
+  const status = useSelector((state) => state.characters.status);
   const error = useSelector((state) => state.characters.error);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCharacters());
-  }, [dispatch]);
+    if (status === "idle") {
+      dispatch(fetchCharacters());
+    }
+  }, [dispatch, status]);
 
-  if (error) {
+  if (status === "failed") {
     return <Error message={error} />;
   }
 
@@ -33,7 +35,7 @@ function Home() {
       >
         {characters.map((character) => (
           <div key={character.char_id}>
-            <Link to="/">
+            <Link to={`char/${character.char_id}`}>
               <img
                 alt={character.name}
                 src={character.img}
@@ -45,8 +47,8 @@ function Home() {
         ))}
       </Masonry>
       <div style={{ padding: "20px 0 40px 0", textAlign: "center" }}>
-        {isLoading && <Loading />}
-        {hasNextPage && !isLoading && (
+        {status === "loading" && <Loading />}
+        {hasNextPage && status !== "loading" && (
           <button onClick={() => dispatch(fetchCharacters(nexPage))}>
             Load More ({nexPage})
           </button>
