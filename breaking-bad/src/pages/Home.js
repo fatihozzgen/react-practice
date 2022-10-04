@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchCharacters } from "../redux/charactersSlice";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+import { Link } from "react-router-dom";
 function Home() {
   const characters = useSelector((state) => state.characters.items);
   const nexPage = useSelector((state) => state.characters.page);
@@ -32,12 +33,14 @@ function Home() {
       >
         {characters.map((character) => (
           <div key={character.char_id}>
-            <img
-              alt={character.name}
-              src={character.img}
-              className="character"
-            />
-            <div className="charname">{character.name}</div>
+            <Link to="/">
+              <img
+                alt={character.name}
+                src={character.img}
+                className="character"
+              />
+              <div className="charname">{character.name}</div>
+            </Link>
           </div>
         ))}
       </Masonry>
