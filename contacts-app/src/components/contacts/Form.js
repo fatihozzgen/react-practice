@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import { addcontact, addcontacts } from "../../redux/contactSlice";
+import { addcontact } from "../../redux/contactSlice";
 
 function Form() {
   const [name, setName] = useState("");
@@ -11,10 +11,7 @@ function Form() {
     e.preventDefault();
     if (!name) return false;
 
-    const names = name.split(",");
-    const data = names.map((name) => ({ id: nanoid(), name }));
-
-    dispatch(addcontacts(data));
+    dispatch(addcontact({ id: nanoid(), name }));
 
     setName("");
   };
